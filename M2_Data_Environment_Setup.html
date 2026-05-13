@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M2: Data & Environment Setup</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #7C3AED;
+    --accent-light: #F5F3FF;
+    --dark: #0F172A;
+    --mid: #334155;
+    --muted: #94A3B8;
+    --border: #E2E8F0;
+    --green: #16A34A;
+    --green-light: #F0FDF4;
+    --bg: #F8FAFC;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); font-family: 'DM Mono', monospace; color: var(--dark); min-height: 100vh; }
+
+  .hero {
+    background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 60%, #8B5CF6 100%);
+    padding: 52px 48px 40px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: "M2";
+    position: absolute; right: 40px; top: 50%; transform: translateY(-50%);
+    font-family: 'Fraunces', serif; font-size: 140px; font-weight: 700;
+    color: rgba(255,255,255,0.07); line-height: 1; pointer-events: none;
+  }
+  .hero-tag { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-bottom: 12px; }
+  .hero-title { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 300; color: #fff; line-height: 1.2; margin-bottom: 8px; }
+  .hero-title span { font-style: italic; }
+  .hero-sub { font-size: 12px; color: rgba(255,255,255,0.65); }
+
+  .meta-bar { display: grid; grid-template-columns: repeat(3, 1fr); background: white; border-bottom: 1px solid var(--border); }
+  .meta-item { padding: 18px 28px; border-right: 1px solid var(--border); }
+  .meta-item:last-child { border-right: none; }
+  .meta-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .meta-value { font-size: 14px; font-weight: 500; color: var(--dark); }
+  .status-done { color: var(--green); }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 40px 24px 60px; }
+
+  .section { margin-bottom: 36px; }
+  .section-label {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  .body-text { font-size: 13px; line-height: 1.8; color: var(--mid); }
+
+  .checklist { display: flex; flex-direction: column; gap: 8px; }
+  .check-item {
+    display: flex; align-items: center; gap: 12px;
+    background: white; border: 1px solid var(--border);
+    padding: 12px 16px; border-radius: 6px; font-size: 13px;
+  }
+  .check-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .check-icon svg { width: 11px; height: 11px; }
+
+  .findings { display: flex; flex-direction: column; gap: 20px; }
+  .finding-block { background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .finding-header { padding: 12px 18px; background: var(--accent-light); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+  .finding-body { padding: 16px 18px; }
+  .finding-body ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .finding-body li { font-size: 13px; color: var(--mid); line-height: 1.6; padding-left: 16px; position: relative; }
+  .finding-body li::before { content: "—"; position: absolute; left: 0; color: var(--muted); }
+
+  .deliverable {
+    background: var(--green-light); border: 1.5px solid var(--green);
+    border-radius: 8px; padding: 18px 20px;
+    font-size: 13px; color: var(--dark); line-height: 1.7;
+  }
+  .deliverable strong { display: block; margin-bottom: 4px; color: var(--green); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+
+  .insight {
+    background: white; border-left: 3px solid var(--accent);
+    padding: 16px 20px; border-radius: 0 8px 8px 0;
+    font-size: 13px; color: var(--mid); line-height: 1.8;
+  }
+
+  .progress { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--border); }
+  .progress-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .progress-track { display: flex; gap: 6px; }
+  .prog-step { flex: 1; padding: 8px 4px; border-radius: 4px; text-align: center; font-size: 12px; font-weight: 500; color: white; }
+  .prog-done { background: var(--green); }
+  .prog-active { background: var(--accent); }
+  .prog-pending { background: var(--border); color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Internship Milestone Report</div>
+  <div class="hero-title">M2: Data & <span>Environment</span> Setup</div>
+  <div class="hero-sub">Week 3 &nbsp;·&nbsp; Dataset & Experimentation Setup</div>
+</div>
+
+<div class="meta-bar">
+  <div class="meta-item"><div class="meta-label">Milestone</div><div class="meta-value">M2</div></div>
+  <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">Week 3</div></div>
+  <div class="meta-item"><div class="meta-label">Status</div><div class="meta-value status-done">✓ Completed</div></div>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-label">01 &nbsp; Objective</div>
+    <p class="body-text">Understand dataset structure and set up a basic experimentation environment. Implement image loading, visualization, and a preprocessing pipeline in a reproducible Jupyter Notebook.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">02 &nbsp; Tasks Completed</div>
+    <div class="checklist">
+      <div class="check-item"><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>Load dataset and explore directory structure</div>
+      <div class="check-item"><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>Visualize sample images and verify class distribution</div>
+      <div class="check-item"><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>Implement preprocessing pipeline (resize, normalize, augment)</div>
+      <div class="check-item"><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>Split into Train / Validation / Test sets and configure DataLoader</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">03 &nbsp; Key Findings</div>
+    <div class="findings">
+      <div class="finding-block">
+        <div class="finding-header">Dataset Structure</div>
+        <div class="finding-body"><ul>
+          <li>Dataset used: NIH ChestX-ray14 (subset, approximately 5,000 images)</li>
+          <li>Class composition: 5 classes including Pneumonia, Atelectasis, and Normal</li>
+          <li>Class imbalance confirmed: Normal class accounts for 42% of all samples</li>
+        </ul></div>
+      </div>
+      <div class="finding-block">
+        <div class="finding-header">Environment Setup</div>
+        <div class="finding-body"><ul>
+          <li>Python 3.10 + PyTorch 2.0 + torchvision environment configured</li>
+          <li>Google Colab Pro (GPU: A100) used alongside local development environment</li>
+          <li>Experiment logging configured via Weights & Biases (wandb)</li>
+        </ul></div>
+      </div>
+      <div class="finding-block">
+        <div class="finding-header">Preprocessing Pipeline</div>
+        <div class="finding-body"><ul>
+          <li>Image resizing: all images resized to 224×224 pixels</li>
+          <li>Normalization: ImageNet mean/std applied (mean=[0.485, 0.456, 0.406])</li>
+          <li>Augmentation: RandomHorizontalFlip, RandomRotation(10°), ColorJitter</li>
+          <li>Split ratio: Train 70% / Val 15% / Test 15% with Stratified Split</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">04 &nbsp; Deliverable</div>
+    <div class="deliverable">
+      <strong>Submitted</strong>
+      Jupyter Notebook with data loading, visualization, and preprocessing pipeline (m2_data_setup.ipynb)
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">05 &nbsp; Insights & Reflection</div>
+    <div class="insight">
+      The class imbalance was more severe than expected. Visualizing the distribution showed that a naive model predicting "Normal" for every sample could still achieve high accuracy — a trivial solution trap. WeightedSampler or Focal Loss will be explored in the next milestone to address this.
+    </div>
+  </div>
+
+  <div class="progress">
+    <div class="progress-label">Overall Progress</div>
+    <div class="progress-track">
+      <div class="prog-step prog-done">M1</div>
+      <div class="prog-step prog-active">M2</div>
+      <div class="prog-step prog-pending">M3</div>
+      <div class="prog-step prog-pending">M4</div>
+      <div class="prog-step prog-pending">M5</div>
+      <div class="prog-step prog-pending">M6</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

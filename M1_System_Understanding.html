@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M1: System Understanding</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #2563EB;
+    --accent-light: #EFF6FF;
+    --dark: #0F172A;
+    --mid: #334155;
+    --muted: #94A3B8;
+    --border: #E2E8F0;
+    --green: #16A34A;
+    --green-light: #F0FDF4;
+    --bg: #F8FAFC;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); font-family: 'DM Mono', monospace; color: var(--dark); min-height: 100vh; }
+
+  .hero {
+    background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 60%, #3B82F6 100%);
+    padding: 52px 48px 40px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: "M1";
+    position: absolute; right: 40px; top: 50%; transform: translateY(-50%);
+    font-family: 'Fraunces', serif; font-size: 140px; font-weight: 700;
+    color: rgba(255,255,255,0.07); line-height: 1; pointer-events: none;
+  }
+  .hero-tag { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-bottom: 12px; }
+  .hero-title { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 300; color: #fff; line-height: 1.2; margin-bottom: 8px; }
+  .hero-title span { font-style: italic; }
+  .hero-sub { font-size: 12px; color: rgba(255,255,255,0.65); }
+
+  .meta-bar {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    background: white; border-bottom: 1px solid var(--border);
+  }
+  .meta-item { padding: 18px 28px; border-right: 1px solid var(--border); }
+  .meta-item:last-child { border-right: none; }
+  .meta-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .meta-value { font-size: 14px; font-weight: 500; color: var(--dark); }
+  .status-done { color: var(--green); }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 40px 24px 60px; }
+
+  .section { margin-bottom: 36px; }
+  .section-label {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  .body-text { font-size: 13px; line-height: 1.8; color: var(--mid); }
+
+  .checklist { display: flex; flex-direction: column; gap: 8px; }
+  .check-item {
+    display: flex; align-items: center; gap: 12px;
+    background: white; border: 1px solid var(--border);
+    padding: 12px 16px; border-radius: 6px; font-size: 13px;
+  }
+  .check-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .check-icon svg { width: 11px; height: 11px; }
+
+  .findings { display: flex; flex-direction: column; gap: 20px; }
+  .finding-block { background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .finding-header { padding: 12px 18px; background: var(--accent-light); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+  .finding-body { padding: 16px 18px; }
+  .finding-body ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .finding-body li { font-size: 13px; color: var(--mid); line-height: 1.6; padding-left: 16px; position: relative; }
+  .finding-body li::before { content: "—"; position: absolute; left: 0; color: var(--muted); }
+
+  .deliverable {
+    background: var(--green-light); border: 1.5px solid var(--green);
+    border-radius: 8px; padding: 18px 20px;
+    font-size: 13px; color: var(--dark); line-height: 1.7;
+  }
+  .deliverable strong { display: block; margin-bottom: 4px; color: var(--green); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+
+  .insight {
+    background: white; border-left: 3px solid var(--accent);
+    padding: 16px 20px; border-radius: 0 8px 8px 0;
+    font-size: 13px; color: var(--mid); line-height: 1.8;
+  }
+
+  .progress { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--border); }
+  .progress-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .progress-track { display: flex; gap: 6px; }
+  .prog-step {
+    flex: 1; padding: 8px 4px; border-radius: 4px; text-align: center;
+    font-size: 12px; font-weight: 500; color: white;
+  }
+  .prog-done { background: var(--green); }
+  .prog-active { background: var(--accent); }
+  .prog-pending { background: var(--border); color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Internship Milestone Report</div>
+  <div class="hero-title">M1: System <span>Understanding</span></div>
+  <div class="hero-sub">Week 1–2 &nbsp;·&nbsp; Medical AI System Analysis</div>
+</div>
+
+<div class="meta-bar">
+  <div class="meta-item"><div class="meta-label">Milestone</div><div class="meta-value">M1</div></div>
+  <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">Week 1 – 2</div></div>
+  <div class="meta-item"><div class="meta-label">Status</div><div class="meta-value status-done">✓ Completed</div></div>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-label">01 &nbsp; Objective</div>
+    <p class="body-text">Understand how real-world medical AI systems operate, including platform structure and data usage. Analyze a healthcare platform such as DoctorKeeper and research foundational image AI concepts.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">02 &nbsp; Tasks Completed</div>
+    <div class="checklist">
+      <div class="check-item"><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>Analyze healthcare platform (DoctorKeeper) structure</div>
+      <div class="check-item"><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>Understand medical image data usage and formats (DICOM, X-ray, MRI)</div>
+      <div class="check-item"><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>Research public medical AI datasets (NIH ChestX-ray14, ISIC, etc.)</div>
+      <div class="check-item"><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>Study basic image AI concepts (CNN, ResNet, classification models)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">03 &nbsp; Key Findings</div>
+    <div class="findings">
+      <div class="finding-block">
+        <div class="finding-header">Healthcare Platform Analysis</div>
+        <div class="finding-body"><ul>
+          <li>DoctorKeeper is a SaaS-based platform integrating patient records, diagnostic images, and prescriptions</li>
+          <li>DICOM-format X-ray, MRI, CT images stored in the cloud and linked to AI diagnostic modules</li>
+          <li>Data access managed via Role-Based Access Control (RBAC) with HIPAA compliance structure</li>
+        </ul></div>
+      </div>
+      <div class="finding-block">
+        <div class="finding-header">Medical AI Dataset Research</div>
+        <div class="finding-body"><ul>
+          <li>NIH ChestX-ray14: 112,120 chest X-ray images labeled with 14 disease categories</li>
+          <li>ISIC Skin Lesion Dataset: benchmark dataset for skin lesion classification tasks</li>
+          <li>Class imbalance identified as a core challenge in medical AI model training</li>
+        </ul></div>
+      </div>
+      <div class="finding-block">
+        <div class="finding-header">Basic Image AI Concepts</div>
+        <div class="finding-body"><ul>
+          <li>CNN (Convolutional Neural Network): core architecture for image feature extraction</li>
+          <li>Overview of major classification models: ResNet, VGG, EfficientNet</li>
+          <li>Transfer Learning concept and its application cases in the medical imaging domain</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">04 &nbsp; Deliverable</div>
+    <div class="deliverable">
+      <strong>Submitted</strong>
+      3–5 page analysis report covering platform structure, dataset overview, and basic image AI concepts
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">05 &nbsp; Insights & Reflection</div>
+    <div class="insight">
+      Learned that medical AI requires strong focus on explainability and regulatory compliance beyond simple accuracy. In real-world clinical settings, the cost of False Negatives (missed diagnoses) is extremely high, making Recall a critical evaluation metric alongside accuracy.
+    </div>
+  </div>
+
+  <div class="progress">
+    <div class="progress-label">Overall Progress</div>
+    <div class="progress-track">
+      <div class="prog-step prog-active">M1</div>
+      <div class="prog-step prog-pending">M2</div>
+      <div class="prog-step prog-pending">M3</div>
+      <div class="prog-step prog-pending">M4</div>
+      <div class="prog-step prog-pending">M5</div>
+      <div class="prog-step prog-pending">M6</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
